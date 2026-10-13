@@ -1,6 +1,7 @@
 # Author: David Holmqvist <daae19@student.bth.se>
 
-CXX=g++-13
+# ADD -O2 maybe
+CXX=g++
 CXXFLAGS=-std=c++17 -g -Wunused -Wall -Wunused
 
 all: pearson verify

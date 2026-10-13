@@ -22,3 +22,7 @@
 !im3_seq.ppm
 !im4_seq.ppm
 
+
+# Perf recordings
+perf*.data
+perf*.data.old
