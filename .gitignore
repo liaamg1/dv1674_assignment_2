@@ -1,0 +1,28 @@
+# ignore all c++ .o files (runnable files)
+*.o
+
+# ignore Zone.Identifier files metadata files
+*Zone.Identifier
+
+# ignore perf files 
+*.data
+
+# ignore files we create from runing test in ex blur 
+*.ppm
+
+# input 
+!im1.ppm
+!im2.ppm 
+!im3.ppm
+!im4.ppm
+
+# output 
+!im1_seq.ppm
+!im2_seq.ppm
+!im3_seq.ppm
+!im4_seq.ppm
+
+
+# ignore perf files
+perf.data.old 
+perf.data
