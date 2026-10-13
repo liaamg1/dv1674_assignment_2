@@ -22,7 +22,3 @@
 !im3_seq.ppm
 !im4_seq.ppm
 
-
-# ignore perf files
-perf.data.old 
-perf.data
