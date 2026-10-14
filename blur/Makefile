@@ -49,5 +49,21 @@ blur_optimization_three:matrix_optimization_two ppm_optimization_two filters_opt
 filters_optimization_three: matrix_optimization_two optimization_3/filters.hpp optimization_3/filters.cpp
 	$(CXX) $(CXXFLAGS) -c optimization_3/filters.cpp -o filters.o
 
+
+# optimization using pthreads 
+blur_optimization_threads: matrix_optimization_two ppm_optimization_two filter_par optimization_threads/blur.cpp
+	$(CXX) $(CXXFLAGS) optimization_threads/blur.cpp matrix.o ppm.o filters.o thread.o -o blur_par
+threads_par: optimization_threads/Thread.hpp optimization_threads/Thread.cpp
+	$(CXX) $(CXXFLAGS) -c optimization_threads/Thread.cpp -o thread.o
+
+filter_par: matrix_optimization_two threads_par optimization_threads/filters.hpp optimization_threads/filters.cpp
+	$(CXX) $(CXXFLAGS) -c optimization_threads/filters.cpp -o filters.o
+
+
+
+
+
 clean:
 	rm -rf blur *.ppm *.o *.dSYM 2> /dev/null
+
+
