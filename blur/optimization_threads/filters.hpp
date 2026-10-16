@@ -24,6 +24,16 @@ namespace Filter
         void get_weights(int n, double *weights_out);
     }
 
+
+/*
+    Executes a horizontal or vertical blur pass using multiple threads.
+    The image is divided into sections based on its width, and each
+    thread processes its assigned columns independently.
+ 
+    ThreadData stores the information required by each thread.
+    pthread_create() starts the threads, while pthread_join() ensures
+    that all threads finish before the function returns.
+ */
     Matrix blur(const Matrix & m, const int radius, const int num_threads);
 
 }

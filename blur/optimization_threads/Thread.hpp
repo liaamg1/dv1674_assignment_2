@@ -31,6 +31,7 @@ namespace blur_thread {
         public:
             ThreadData(const Matrix * m, Matrix * dst, const double * weights, const int radius, int start_x, int end_x, bool is_horizontal)
                 : m(m), dst(dst), weights(weights), radius(radius), start_x(start_x), end_x(end_x), is_horizontal(is_horizontal) {}
+                
 
             void * blurWorker();
             static void* startThread(void* arg)
