@@ -31,8 +31,6 @@ namespace Filter
 
     Matrix blur(const Matrix& m, const int radius, const int num_threads)
 {
-    if (num_threads < 1)
-        throw std::invalid_argument("Thread count must be positive");
 
     Matrix scratch{m.get_x_size(), m.get_y_size()};
     auto dst{m};

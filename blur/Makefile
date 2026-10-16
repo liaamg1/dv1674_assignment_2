@@ -64,6 +64,6 @@ filter_par: matrix_optimization_two threads_par optimization_threads/filters.hpp
 
 
 clean:
-	rm -rf blur *.ppm *.o *.dSYM 2> /dev/null
+	rm -rf blur blur_par *.ppm *.o *.dSYM 2> /dev/null
 
 
