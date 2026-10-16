@@ -1,29 +1,5 @@
 #!/bin/bash
 
-# echo "NOTE: this script relies on the binaries blur and blur_par to exist"
-
-# status=0
-# red=$(tput setaf 1)
-# reset=$(tput sgr0)
-
-# for thread in 1 2 4 8 16 32
-# do
-#     for image in im1 im2 im3 im4
-#     do
-#         ./blur_par 15 "data/$image.ppm" "./data_o/blur_${image}_par.ppm" $thread
-
-#        if ! cmp -s "./data_o/blur_${image}.ppm" "./data_o/blur_${image}_par.ppm"
-#         then
-#             echo "${red}Error: Incongruent output data detected when blurring image $image.ppm with $thread thread(s)${reset}"
-#             status=1
-#         fi
-
-#         rm "./data_o/blur_${image}_par.ppm"
-#     done
-# done
-
-# exit $status
-
 echo "NOTE: this script relies on the binaries blur and blur_par to exist"
 
 status=0
@@ -34,21 +10,17 @@ for thread in 1 2 4 8 16 32
 do
     for image in im1 im2 im3 im4
     do
-        if [ ! -f "./data_o/${image}_seq.ppm" ]; then
-            echo "${red}Error: Missing reference file ./data_o/${image}_seq.ppm${reset}"
-            status=1
-            continue
-        fi
-
         ./blur_par 15 "data/$image.ppm" "./data_o/blur_${image}_par.ppm" $thread
 
+        # Original code checks the incorrect name of the output file name. Name dosent exist 
+        # if ! cmp -s "./data_o/blur_${image}.ppm" "./data_o/blur_${image}_par.ppm"
         if ! cmp -s "./data_o/${image}_seq.ppm" "./data_o/blur_${image}_par.ppm"
         then
             echo "${red}Error: Incongruent output data detected when blurring image $image.ppm with $thread thread(s)${reset}"
             status=1
         fi
 
-        rm -f "./data_o/blur_${image}_par.ppm"
+        rm "./data_o/blur_${image}_par.ppm"
     done
 done
 
