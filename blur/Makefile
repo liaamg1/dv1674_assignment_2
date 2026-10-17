@@ -3,7 +3,7 @@
 CXX=g++
 CXXFLAGS=-std=c++17 -g -Wunused -Wall -Wunused
 
-all: baseline_blur
+all: baseline_blur blur_optimization_threads
 
 # baseline 
 baseline_blur: matrix ppm filters baseline/blur.cpp
@@ -51,17 +51,21 @@ filters_optimization_three: matrix_optimization_two optimization_3/filters.hpp o
 
 
 # optimization using pthreads 
-blur_optimization_threads: matrix_optimization_two ppm_optimization_two filter_par optimization_threads/blur.cpp
-	$(CXX) $(CXXFLAGS) optimization_threads/blur.cpp matrix.o ppm.o filters.o thread.o -o blur_par
+
+blur_optimization_threads: matrix_optimization_threads ppm_optimization_threads threads_par filter_par optimization_threads/blur.cpp
+	$(CXX) $(CXXFLAGS) optimization_threads/blur.cpp matrix_par.o ppm_par.o filters_par.o thread_par.o -o blur_par
+	
+matrix_optimization_threads: optimization_2/matrix.hpp optimization_2/matrix.cpp
+	$(CXX) $(CXXFLAGS) -c optimization_2/matrix.cpp -o matrix_par.o
+
+ppm_optimization_threads: optimization_2/ppm.hpp optimization_2/ppm.cpp
+	$(CXX) $(CXXFLAGS) -c optimization_2/ppm.cpp -o ppm_par.o
+
 threads_par: optimization_threads/Thread.hpp optimization_threads/Thread.cpp
-	$(CXX) $(CXXFLAGS) -c optimization_threads/Thread.cpp -o thread.o
+	$(CXX) $(CXXFLAGS) -c optimization_threads/Thread.cpp -o thread_par.o
 
-filter_par: matrix_optimization_two threads_par optimization_threads/filters.hpp optimization_threads/filters.cpp
-	$(CXX) $(CXXFLAGS) -c optimization_threads/filters.cpp -o filters.o
-
-
-
-
+filter_par: matrix_optimization_threads ppm_optimization_threads threads_par optimization_threads/filters.hpp optimization_threads/filters.cpp
+	$(CXX) $(CXXFLAGS) -c optimization_threads/filters.cpp -o filters_par.o
 
 clean:
 	rm -rf blur blur_par *.ppm *.o *.dSYM 2> /dev/null
